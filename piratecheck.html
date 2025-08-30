@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <title>Checkout - Yara</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #fff;
+            color: #222;
+        }
+
+        /* Header */
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+        }
+
+        .cart-header i {
+            font-size: 18px;
+        }
+
+        .cart-header span {
+            font-weight: 500;
+        }
+
+        /* Banner */
+        .banner {
+            background: black;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* Product */
+        .product-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .product-info img {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .product-info h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+            text-transform: capitalize;
+        }
+
+        .qty {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .qty button {
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+            width: 26px;
+            height: 26px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .product-price {
+            text-align: right;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .product-price del {
+            font-size: 13px;
+            color: #888;
+            display: block;
+        }
+
+        /* Highlights */
+        .highlights {
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        .highlights p {
+            margin-bottom: 8px;
+        }
+
+        .highlights .red {
+            color: red;
+            font-weight: 600;
+        }
+
+        /* Form */
+        .shipping {
+            padding: 15px;
+        }
+
+        .shipping h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: red;
+        }
+
+        .shipping input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* Pay Now Banner */
+        .pay-banner {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 12px;
+            margin: 15px;
+        }
+
+        .pay-banner i {
+            margin-right: 5px;
+            color: gold;
+        }
+
+        /* Footer Checkout */
+        .checkout-box {
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .checkout-box p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .checkout-box span {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .checkout-btn {
+            display: block;
+            float: right;
+            width: 100%;
+            background: black;
+            color: white;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .checkout-btn:hover {
+            background-color: red;
+            /* color: black; */
+        }
+
+        .secured {
+
+            text-align: center;
+            font-size: 12px;
+            margin-top: 10px;
+            color: #777;
+        }
+
+        .secured i {
+
+            color: #f4c542;
+            margin-right: 4px;
+        }
+
+        .checkout-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .checkout-btn.loading::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 3px solid white;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="cart-header">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Your cart · 1 item</span>
+        <i class="fa-solid fa-xmark"></i>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        Free Shipping. Easy Delivery
+    </div>
+
+    <!-- Product -->
+    <div class="product-card">
+        <div class="product-info">
+            <img src="bracelet1.png" alt="Bracelet">
+            <div>
+                <h4>pirate bracelet for male</h4>
+                <div class="qty">
+                    <!-- <button>-</button> -->
+                    <!-- <span>1</span> -->
+                    <!-- <button>+</button> -->
+                </div>
+            </div>
+        </div>
+        <div class="product-price">
+            <del>₹699</del>
+            ₹419
+        </div>
+    </div>
+
+    <!-- Highlights -->
+    <div class="highlights">
+        <p class="red"><i class="fa-solid fa-truck-fast"></i> Ships within 2 hours</p>
+        <p><i class="fa-solid fa-shield"></i> Best Quality Provider | yara</p>
+        <p><i class="fa-solid fa-file-invoice"></i> Love yourself and Your Choices</p>
+    </div>
+
+    <!-- Shipping -->
+    <form method="post">
+        <div class="shipping">
+            <h3>Shipping Details</h3>
+            <input type="text" placeholder="Full Name" name="name" required>
+            <input type="number" placeholder="Phone Number" name="number" required>
+            <input type="text" placeholder="Address Line 1" name="address" required>
+            <input type="text" placeholder="City" name="city" required>
+            <input type="text" placeholder="State" name="state" required>
+            <input type="number" placeholder="Pincode" name="pin" required>
+        </div>
+
+        <!-- Pay Now Banner -->
+        <!-- <div class="pay-banner">
+        <i class="fa-solid fa-heart"></i> yara Welcomes You - Thanks
+    </div> -->
+
+        <!-- Checkout Footer -->
+        <div class="checkout-box">
+            <p>₹419</p>
+            <span>Estimated total</span>
+            <button class="submit checkout-btn ">Buy now</button>
+
+        </div>
+    </form>
+    <script>
+        const form = document.querySelector("form");
+        const buyBtn = document.querySelector(".checkout-btn");
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            // Button to loader
+            buyBtn.classList.add("loading");
+            buyBtn.innerText = "";
+
+            const formData = new FormData(form);
+
+            // ⚡ Replace with your Google Apps Script Web App URL
+            const scriptURL = "YOUR_GOOGLE_SCRIPT_URL";
+
+            try {
+                await fetch(scriptURL, { method: "POST", body: formData });
+
+                // ✅ Redirect to Razorpay after saving
+                window.location.href = "https://checkout.razorpay.com/v1/checkout.js";
+            } catch (err) {
+                alert("Error! Try again.");
+                buyBtn.classList.remove("loading");
+                buyBtn.innerText = "Buy Now";
+            }
+        });
+    </script>
+     <script>
+        // Right click disable
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+        // Disable common keys (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
+        document.addEventListener("keydown", (e) => {
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+                (e.ctrlKey && e.key === "U")
+            ) {
+                e.preventDefault();
+            }
+        });
+
+        // Detect if DevTools is open (size trick)
+        setInterval(() => {
+            if (window.outerHeight - window.innerHeight > 150 || window.outerWidth - window.innerWidth > 150) {
+                document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:20%'>⚠️ Inspect Not Allowed!</h1>";
+            }
+        }, 1000);
+    </script>
+
+
+
+</body>
+
+</html>
