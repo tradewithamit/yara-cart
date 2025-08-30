@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <title>Yara cart</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- ✅ Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        /* font-family: "Poppins", sans-serif; */
+        font-family: 'Times New Roman', Times, serif;
+        background: #F8F9FD;
+        color: #2C2C2C;
+        line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(12px);
+        z-index: 1000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 30px;
+    }
+
+    .logo-text {
+        font-size: 24px;
+        font-weight: bold;
+        color: purple;
+        /* color: white; */
+        font-family: "Charmonman", cursive;
+    }
+
+    .logo-img img {
+        height: 40px;
+        margin-left: 110px;
+        background-color: white;
+        border-radius: 50%;
+    }
+
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+
+
+    .navbar ul li a {
+        color: #2C2C2C;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+        color: #6C63FF;
+    }
+
+
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 25px;
+        height: 20px;
+        cursor: pointer;
+        z-index: 1100;
+
+
+    }
+
+    .hamburger span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background: #2C2C2C;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+
+    }
+
+    /* Toggle animation */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .relative {
+        margin-top: 65px;
+    }
+
+    /* Hero Section */
+    .hero {
+        margin-top: 80px;
+        text-align: center;
+        padding: 80px 20px;
+        background-image: url("https://img.freepik.com/free-photo/3d-illustration-smartphone-with-products-coming-out-screen-online-shopping-e-commerce-concept_58466-14529.jpg?w=1480");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        color: #6C63FF;
+    }
+
+    .hero p {
+        margin: 10px 0 20px;
+        font-size: 18px;
+    }
+
+    .hero .btn {
+        background: #6C63FF;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .hero .btn:hover {
+        background-color: #4A3AFF;
+        transform: scale(1.05);
+    }
+
+    /* Categories */
+    .categories {
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .categories h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #6C63FF;
+    }
+
+    .category-slider {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 10px;
+        animation: slideIn 1s ease-out;
+        justify-content: space-around;
+    }
+
+    .category-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-card {
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        background: transparent;
+        border-radius: 0;
+        width: 90px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .category-card img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-card p {
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #2C2C2C;
+    }
+
+    .category-card:hover {
+        transform: scale(0.9);
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    /* Products */
+    .products {
+        padding: 50px 20px;
+        text-align: center;
+    }
+
+    .buy-btn {
+        display: inline-block;
+        text-align: center;
+        background: #FF8BA7;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        width: 100%;
+    }
+
+    .buy-btn:hover {
+        background: #6C63FF;
+
+    }
+
+    .products h2 {
+        font-size: 32px;
+        margin-bottom: 30px;
+        color: #6C63FF;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .product-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-card img {
+        max-width: 100%;
+        border-radius: 10px;
+    }
+
+    .product-card h3 {
+        margin: 15px 0 10px;
+        font-size: 20px;
+        color: #6C63FF;
+        color: purple;
+        text-transform: capitalize;
+    }
+
+    .product-card p {
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .product-card p del {
+        color: #888;
+        margin-right: 8px;
+    }
+
+    .product-card .btn-checkout {
+        display: inline-block;
+        text-align: center;
+        background: #FF8BA7;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        width: 100%;
+    }
+
+    .product-card .btn-checkout:hover {
+        background: #6C63FF;
+    }
+
+    /* Footer */
+    footer {
+        background: linear-gradient(to top, #6C63FF, #FF8BA7);
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .logo-img img {
+            margin-left: 1px;
+        }
+
+        .navbar ul {
+            position: absolute;
+            top: 70px;
+            right: -250px;
+            width: 200px;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 15px;
+            border-radius: 10px;
+            transition: right 0.4s ease;
+            align-items: center;
+        }
+
+
+        .navbar ul.active {
+            right: 20px;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+
+        .hero {
+            padding: 40px 15px;
+            min-height: 40vh;
+            background-position: top;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+        }
+
+        .hero p {
+            font-size: 14px;
+        }
+
+        .hero .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-text">yara cart</div>
+        <div class="logo-img">
+            <img src="yaara logo.png" alt="Yaara Logo">
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li class="home"><a href="index.html">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Banner -->
+    <section class="relative w-full overflow-hidden">
+        <div class="flex transition-transform duration-700" id="bannerSlider">
+            <img src="https://erisilvers.com/cdn/shop/files/01_994933ca-e824-4940-b6fe-8bf30215fa7c.jpg?v=1754481591&width=2000"
+                class="w-full flex-shrink-0" alt="Banner 1">
+            <img src="https://erisilvers.com/cdn/shop/files/02_89f67f2c-c982-437c-bcdb-b8fa27cf57e4.jpg?v=1755150418&width=2000"
+                class="w-full flex-shrink-0" alt="Banner 2">
+            <img src="https://erisilvers.com/cdn/shop/files/04_7d42ee7b-35af-4068-addf-2210cacb50e6.jpg?v=1755150418&width=2000"
+                class="w-full flex-shrink-0" alt="Banner 3">
+        </div>
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <button class="w-3 h-3 bg-purple-300 rounded-full"></button>
+            <button class="w-3 h-3 bg-purple-300 rounded-full"></button>
+            <button class="w-3 h-3 bg-purple-300 rounded-full"></button>
+        </div>
+    </section>
+
+    <!-- Category Section -->
+    <section class="categories">
+        <h2>Shop by Category</h2>
+        <div class="category-slider">
+            <a href="earring.html" class="category-card">
+                <img src="earring.jpg" alt="Earrings">
+                <p>Earrings</p>
+            </a>
+            <a href="ring.html" class="category-card">
+                <img src="ring.jpg" alt="Ring">
+                <p>Ring</p>
+            </a>
+            <a href="bracelet.html" class="category-card">
+                <img src="bracelet.jpg" alt="Bracelets">
+                <p>Bracelets</p>
+            </a>
+            <a href="chain.html" class="category-card">
+                <img src="chain.jpg" alt="Chain">
+                <p>Chain</p>
+            </a>
+            <a href="anklet.html" class="category-card">
+                <img src="ankle.jpg" alt="Anklets">
+                <p>Anklets</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <a href="lupacheck.html">
+                    <img src="ring1.jpg" alt="Product 1">
+                    <h3>Lupa ring </h3>
+                </a>
+                <p><del>&#8377;1,765</del> &#8377;999</p>
+                <button class="buy-btn" onclick="window.location.href='lupacheck.html'">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+            <div class="product-card">
+                <a href="semocheck.html">
+                    <img src="ring2.jpg" alt="Product 1">
+                    <h3>Semo Ring</h3>
+                </a>
+                <p><del>&#8377;1,240</del> &#8377;599</p>
+                <button class="buy-btn" onclick="window.location.href='semocheck.html'">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+            <div class="product-card">
+                <a href="piratecheck.html">
+                    <img src="bracelet1.png" alt="Product 1">
+                    <h3>Pirate bracelet for male</h3>
+                </a>
+                <p><del>&#8377;699</del> &#8377;419</p>
+                <button class="buy-btn" onclick="window.location.href='piratecheck.html'">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Yaara cart. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const nav = document.querySelector(".navbar ul");
+        hamburger.addEventListener("click", () => {
+            nav.classList.toggle("active");
+            hamburger.classList.toggle("active");
+        });
+
+        const slider = document.getElementById('bannerSlider');
+        let index = 0;
+        setInterval(() => {
+            index = (index + 1) % 3;
+            slider.style.transform = `translateX(-${index * 100}%)`;
+        }, 4000);
+    </script>
+     <script>
+        // Right click disable
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+        // Disable common keys (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
+        document.addEventListener("keydown", (e) => {
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+                (e.ctrlKey && e.key === "U")
+            ) {
+                e.preventDefault();
+            }
+        });
+
+        // Detect if DevTools is open (size trick)
+        setInterval(() => {
+            if (window.outerHeight - window.innerHeight > 150 || window.outerWidth - window.innerWidth > 150) {
+                document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:20%'>⚠️ Inspect Not Allowed!</h1>";
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>
