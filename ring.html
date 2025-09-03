@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
   <title>Yara - Ring</title>
+  <link rel="shortcut icon" href="https://github.com/tradewithamit/yara-cart/blob/main/yaara%20logo.png?raw=true"
+    type="image/x-icon">
   <!-- ✅ Font Awesome -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -123,16 +125,20 @@
       margin-bottom: 8px;
       color: white;
       text-decoration: none;
-      
-    }
-    .product-card a {
-  text-decoration: none; /* underline hata dega */
-  color: inherit;        /* h3 ka color hi lega */
-}
 
-.product-card a:hover {
-  text-decoration: none; /* hover par bhi underline na aaye */
-}
+    }
+
+    .product-card a {
+      text-decoration: none;
+      /* underline hata dega */
+      color: inherit;
+      /* h3 ka color hi lega */
+    }
+
+    .product-card a:hover {
+      text-decoration: none;
+      /* hover par bhi underline na aaye */
+    }
 
 
     .product-card p {
@@ -158,12 +164,23 @@
 
     /* ✅ Footer */
     footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      flex-wrap: wrap;
       text-align: center;
       padding: 15px;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(8px);
       margin-top: 30px;
       font-size: 0.9rem;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
     }
 
     .logo-img img {
@@ -191,7 +208,7 @@
   <nav class="navbar">
     <div class="logo">yara cart</div>
     <div class="logo-img">
-      <img src="yaara logo.png" alt="Yaara Logo">
+      <img src="https://github.com/tradewithamit/yara-cart/blob/main/yaara%20logo.png?raw=true" alt="Yaara Logo">
     </div>
     <ul class="nav-links">
       <li><a href="shopone.html" class="active">Ring</a></li>
@@ -207,76 +224,94 @@
 
   <!-- ✅ Product Grid -->
   <section class="shop-grid">
-    <div class="product-card">
-      <a href="product1.html">
-        <img src="ring1.jpg" alt="Product 1">
-        <h3>Product 1</h3>
-      </a>
-      <p><del>$79.99</del> $49.99</p>
-      <button class="buy-btn" onclick="window.location.href='product1.html'">
-        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-      </button>
-    </div>
-    <div class="product-card">
-      <a href="product1.html">
-        <img src="ring1.jpg" alt="Product 1">
-        <h3>Product 1</h3>
-      </a>
-      <p><del>$79.99</del> $49.99</p>
-      <button class="buy-btn" onclick="window.location.href='product1.html'">
-        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-      </button>
-    </div>
-    <div class="product-card">
-      <a href="product1.html">
-        <img src="ring1.jpg" alt="Product 1">
-        <h3>Product 1</h3>
-      </a>
-      <p><del>$79.99</del> $49.99</p>
-      <button class="buy-btn" onclick="window.location.href='product1.html'">
-        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-      </button>
-    </div>
-    <div class="product-card">
-      <a href="product1.html">
-        <img src="ring1.jpg" alt="Product 1">
-        <h3>Product 1</h3>
-      </a>
-      <p><del>$79.99</del> $49.99</p>
-      <button class="buy-btn" onclick="window.location.href='product1.html'">
-        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-      </button>
-    </div>
     
-   
+    <div class="product-card">
+      <a href="lupacheck.html">
+          <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring1.jpg?raw=true" alt="Product 1">
+          <h3>Lupa ring </h3>
+      </a>
+      <p><del>&#8377;1,765</del> &#8377;999</p>
+      <button class="buy-btn" onclick="window.location.href='lupacheck.html'">
+          <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+      </button>
+  </div>
+  <div class="product-card">
+      <a href="semocheck.html">
+          <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring2.jpg?raw=true" alt="Product 2">
+          <h3>Semo Ring</h3>
+      </a>
+      <p><del>&#8377;1,240</del> &#8377;599</p>
+      <button class="buy-btn" onclick="window.location.href='semocheck.html'">
+          <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+      </button>
+  </div>
+  <div class="product-card">
+      <a href="romacheck.html">
+          <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring3.jpg?raw=true" alt="Product 3">
+          <h3>Roma Ring</h3>
+      </a>
+      <p><del>&#8377;1,399</del> &#8377;899</p>
+      <button class="buy-btn" onclick="window.location.href='romacheck.html'">
+          <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+      </button>
+  </div>
+  <div class="product-card">
+      <a href="devilcheck.html">
+          <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring4.jpg?raw=true" alt="Product 4">
+          <h3>devil ring </h3>
+      </a>
+      <p><del>&#8377;795</del> &#8377;649</p>
+      <button class="buy-btn" onclick="window.location.href='devilcheck.html'">
+          <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+      </button>
+  </div>
+  <div class="product-card">
+      <a href="mondcheck.html">
+          <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring5.jpg?raw=true" alt="Product 5">
+          <h3>mond Ring</h3>
+      </a>
+      <p><del>&#8377;1,199</del> &#8377;999</p>
+      <button class="buy-btn" onclick="window.location.href='mondcheck.html'">
+          <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+      </button>
+  </div>
+
+
   </section>
 
   <!-- ✅ Footer -->
   <footer>
+    <!-- <p>© 2025 Yaara cart. All rights reserved.</p> -->
     <p>© 2025 Yaara cart. All rights reserved.</p>
+    <p><a href="Privacy Policy.html">Privacy Policy</a></p>
+    <p><a href="Tearms and Condition.html">Tearms And Conditions</a></p>
+    <p><a href="Refund Policy.html">Refund Policy</a></p>
+    <p><a href="About Us.html">About Us</a></p>
+    <p><a href="Contact Us.html">Contact Us</a></p>
   </footer>
+
   <script>
     // Right click disable
     document.addEventListener("contextmenu", (e) => e.preventDefault());
 
     // Disable common keys (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
     document.addEventListener("keydown", (e) => {
-        if (
-            e.key === "F12" ||
-            (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
-            (e.ctrlKey && e.key === "U")
-        ) {
-            e.preventDefault();
-        }
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+      }
     });
 
     // Detect if DevTools is open (size trick)
     setInterval(() => {
-        if (window.outerHeight - window.innerHeight > 150 || window.outerWidth - window.innerWidth > 150) {
-            document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:20%'>⚠️ Inspect Not Allowed!</h1>";
-        }
+      if (window.outerHeight - window.innerHeight > 150 || window.outerWidth - window.innerWidth > 150) {
+        document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:20%'>⚠️ Inspect Not Allowed!</h1>";
+      }
     }, 1000);
-</script>
+  </script>
 </body>
 
 </html>
