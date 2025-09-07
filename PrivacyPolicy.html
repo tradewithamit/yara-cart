@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+  <title>Privacy Policy – Yara Cart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #0f0c29;
+      --bg2: #302b63;
+      --bg3: #24243e;
+      /* background gradient */
+      --glass: rgba(255, 255, 255, .12);
+      --glass-border: rgba(255, 255, 255, .22);
+      --text: #e9e9f1;
+      --muted: #b8b8c7;
+      --accent: #9d4edd;
+      --accent-2: #ff6ec7;
+      --dark: #0e0e12;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box
+      /* -webkit-tap-highlight-color: transparent; */
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: Poppins, system-ui, Segoe UI, Roboto, Arial;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: 300% 300%;
+      animation: bg 18s ease infinite;
+    }
+
+    @keyframes bg {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 24px
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: 12px auto 0;
+      max-width: 1100px;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--card-shadow)
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover
+    }
+
+    .brand span {
+      font-weight: 700;
+      letter-spacing: .5px
+    }
+
+    nav ul {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+      padding: 0;
+      margin: 0
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-weight: 500
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, .18)
+    }
+
+    /* Hero */
+    .hero {
+      margin-top: 26px;
+      padding: 48px 24px;
+      text-align: center;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--card-shadow)
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .2em
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      margin: 8px 0 10px
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #dcdcf0
+    }
+
+    /* Stats strip */
+    .stats {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px
+    }
+
+    .stat {
+      background: rgba(255, 255, 255, .10);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      border-radius: 14px;
+      padding: 16px
+    }
+
+    .stat h3 {
+      margin: 0;
+      font-size: 22px
+    }
+
+    .stat p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    /* Story */
+    .section {
+      margin-top: 36px
+    }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(14px);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--card-shadow)
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 20px;
+      align-items: center
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 16px;
+      object-fit: cover
+    }
+
+    /* Values */
+    .values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px
+    }
+
+    .value {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid var(--glass-border)
+    }
+
+    .value i {
+      font-size: 22px;
+      margin-bottom: 8px;
+      color: var(--accent-2)
+    }
+
+    .value h4 {
+      margin: 0 0 6px
+    }
+
+    .value p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    /* Timeline */
+    .timeline {
+      margin-top: 8px;
+      border-left: 2px solid rgba(255, 255, 255, .25);
+      padding-left: 16px
+    }
+
+    .tl-item {
+      margin: 14px 0
+    }
+
+    .tl-item h5 {
+      margin: 0 0 4px;
+      color: #fff
+    }
+
+    .tl-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    /* Trust badges */
+    .badges {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 14px
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid var(--glass-border)
+    }
+
+    .badge i {
+      font-size: 18px;
+      color: var(--accent)
+    }
+
+    /* CTA */
+    .cta {
+      margin: 36px 0 10px;
+      text-align: center;
+      padding: 28px 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: var(--card-shadow)
+    }
+
+    .cta a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #0f0c29;
+      color: #fff;
+      font-weight: 600
+    }
+
+    /* Footer */
+    footer {
+      margin: 22px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    /* Responsive */
+    @media (max-width:900px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr
+      }
+
+      .values {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .badges {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .hero h1 {
+        font-size: 32px
+      }
+    }
+
+    @media (max-width:520px) {
+      nav ul {
+        display: none
+      }
+
+      .values,
+      .stats,
+      .badges {
+        grid-template-columns: 1fr
+      }
+
+      .hero h1 {
+        font-size: 28px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <img src="https://github.com/tradewithamit/yara-cart/blob/main/yaara%20logo.png?raw=true" alt="Yara Cart Logo" />
+      <span>Yara Cart</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html">Shop</a></li>
+        <li><a href="PrivacyPolicy.html" style="background:rgba(255,255,255,.18)">Privacy Policy</a></li>
+        <li><a href="ContactUs.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="privacy-policy"
+    style="padding: 40px; max-width: 900px; margin: auto; font-family: Arial, sans-serif; line-height: 1.7;">
+    <h2 style="text-align: center; color: #6a0dad;">Privacy Policy</h2>
+    <p>
+      At <strong>Yara Cart</strong>, we value your trust and respect your privacy.
+      This Privacy Policy explains how we collect, use, and protect your information when you shop with us.
+    </p>
+
+    <h3>1. Information We Collect</h3>
+    <p>
+      - Personal details like your name, phone number, email, and shipping address. <br>
+      - Payment details (processed securely via third-party gateways). <br>
+      - Order history and browsing behavior to improve your shopping experience.
+    </p>
+
+    <h3>2. How We Use Your Information</h3>
+    <p>
+      - To process and deliver your orders. <br>
+      - To provide customer support. <br>
+      - To share updates, offers, and promotions (only if you opt-in). <br>
+      - To improve our website and services.
+    </p>
+
+    <h3>3. Sharing of Information</h3>
+    <p>
+      We do not sell or rent your personal information.
+      Your details may only be shared with trusted service providers like payment gateways and delivery partners, solely
+      for fulfilling your order.
+    </p>
+
+    <h3>4. Data Security</h3>
+    <p>
+      We use industry-standard measures to keep your data safe.
+      However, no method of online transmission is 100% secure, so we cannot guarantee absolute security.
+    </p>
+
+    <h3>5. Cookies</h3>
+    <p>
+      Our website may use cookies to enhance your browsing experience.
+      You can manage or disable cookies from your browser settings.
+    </p>
+
+    <h3>6. Your Rights</h3>
+    <p>
+      You have the right to access, update, or delete your personal information by contacting us.
+      You can also opt out of promotional communications anytime.
+    </p>
+
+    <h3>7. Contact Us</h3>
+    <p>
+      If you have any questions about this Privacy Policy, please contact us at: <br>
+      📧 <a href="mailto:kumaramit8668@gmail.com">kumaramit8668@gmail.com</a>
+    </p>
+    
+
+    <p style="text-align: center; margin-top: 20px; font-size: 14px; color: gray;">
+      Last updated: September 2025
+    </p>
+  </section>
+
+
+  <footer>© 2025 Yara Cart. All rights reserved.
+    <p><a href="PrivacyPolicy.html">Privacy Policy</a></p>
+    <p><a href="TearmsandCondition.html">Tearms And Conditions</a></p>
+    <p><a href="RefundPolicy.html">Refund Policy</a></p>
+    <p><a href="AboutUs.html">About Us</a></p>
+    <p><a href="ContactUs.html">Contact Us</a></p>
+  </footer>
+</body>
+
+</html>
