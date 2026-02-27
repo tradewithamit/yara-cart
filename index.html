@@ -1,325 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Digital Products Store</title>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <style>
-    :root {
-      --bg: #0f0f1e;
-      --glass-bg: rgba(255, 255, 255, 0.1);
-      --border: rgba(255, 255, 255, 0.2);
-      --accent: #6d28d9;
-      --text: #e5e5ea;
-      --soldout: #f59e0b;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Products Store</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        :root {
+            --bg: #0f0f1e;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.2);
+            --accent: #6d28d9;
+            --text: #e5e5ea;
+            --soldout: #f59e0b;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, sans-serif;
-      min-height: 100vh;
-      padding: 20px;
-    }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: system-ui, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 1.8rem;
-    }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
 
-    /* slider container */
-    .slider-container {
-      max-width: 400px;
-      margin: 0 auto;
-      overflow: hidden;
-      position: relative;
-    }
+        /* slider container */
+        .slider-container {
+            max-width: 400px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
 
-    .slider-wrapper {
-      display: flex;
-      transition: transform 0.4s ease;
-    }
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.4s ease;
+        }
 
-    .slider-page {
-      display: flex;
-      width: 100%;
-      min-width: 100%;
-      flex-direction: column;
-      gap: 20px;
-    }
+        .slider-page {
+            display: flex;
+            width: 100%;
+            min-width: 100%;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-    /* glass card */
-    .product-card {
-      position: relative;
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 20px;
-      padding: 20px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
+        /* glass card */
+        .product-card {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-    .product-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
 
-    .product-title {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
 
-    .product-desc {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      margin-bottom: 10px;
-    }
+        .product-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
 
-    .product-price {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: var(--accent);
-      margin-bottom: 15px;
-    }
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
 
-    .buy-btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 500;
-      width: 100%;
-      transition: 0.2s ease;
-    }
+        .buy-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            width: 100%;
+            transition: 0.2s ease;
+        }
 
-    .buy-btn:hover {
-      background: #5b21b6;
-    }
+        .buy-btn:hover {
+            background: #5b21b6;
+        }
 
-    /* sold out button */
-    .buy-btn.sold-out {
-      background: var(--soldout);
-      cursor: not-allowed;
-    }
+        /* sold out button */
+        .buy-btn.sold-out {
+            background: var(--soldout);
+            cursor: not-allowed;
+        }
 
-    .buy-btn.sold-out:hover {
-      background: #d97706;
-    }
+        .buy-btn.sold-out:hover {
+            background: #d97706;
+        }
 
-    /* pagination */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
+        /* pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
 
-    .page-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: 0.2s ease;
-    }
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s ease;
+        }
 
-    .page-btn.active {
-      background: var(--accent);
-      color: white;
-    }
+        .page-btn.active {
+            background: var(--accent);
+            color: white;
+        }
 
-    .page-btn:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.15);
-    }
+        .page-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.15);
+        }
 
-    /* nav buttons */
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-    }
+        /* nav buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
 
-    .nav-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: var(--text);
-      padding: 8px 16px;
-      border-radius: 12px;
-      cursor: pointer;
-    }
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
 
-    .nav-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-  </style>
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s ease;
+            z-index: 999;
+        }
+
+        .success-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .success-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            max-width: 320px;
+            animation: popup 0.3s ease;
+        }
+
+        @keyframes popup {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            font-size: 40px;
+            background: #22c55e;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #continueBtn {
+            margin-top: 20px;
+            background: #6d28d9;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+    </style>
 </head>
+
 <body>
-  <h1>Digital Products Store</h1>
+    <h1>Digital Products Store</h1>
 
-  <div class="slider-container">
-    <div class="slider-wrapper">
-      <!-- example pages; each page has 5 products -->
-      <div class="slider-page" id="page-0"></div>
-      <div class="slider-page" id="page-1"></div>
-      <div class="slider-page" id="page-2"></div>
+    <div class="slider-container">
+        <div class="slider-wrapper">
+            <!-- example pages; each page has 5 products -->
+            <div class="slider-page" id="page-0"></div>
+            <div class="slider-page" id="page-1"></div>
+            <div class="slider-page" id="page-2"></div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prev-btn" class="nav-btn">Previous</button>
+            <button id="next-btn" class="nav-btn">Next</button>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
     </div>
 
-    <div class="nav-buttons">
-      <button id="prev-btn" class="nav-btn">Previous</button>
-      <button id="next-btn" class="nav-btn">Next</button>
-    </div>
+    <script>
+        // product list with "available" flag
+        const products = [
+            {
+                id: 1,
+                title: "Digital Ebook Template",
+                desc: "Complete design template for your digital ebook.",
+                price: 1,
+                image: "https://images.unsplash.com/photo-1606743823568-0966664333b3?w=400",
+                available: false,
+            },
+            {
+                id: 2,
+                title: "Figma UI Kit",
+                desc: "Premium UI kit for web and mobile apps.",
+                price: 2,
+                image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400",
+                available: true, // <-- sold out
+            },
+            {
+                id: 3,
+                title: "Notion Template Pack",
+                desc: "50+ Notion templates for productivity and business.",
+                price: 599,
+                image: "https://images.unsplash.com/photo-1616411107377-9cfed96cb3ea?w=400",
+                available: false,
+            },
+            {
+                id: 4,
+                title: "Course Access - Advanced React",
+                desc: "Lifetime access to advanced React course.",
+                price: 1499,
+                image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400",
+                available: false,
+            },
+            {
+                id: 5,
+                title: "Canva Pro Template Bundle",
+                desc: "Premium Canva templates for social media.",
+                price: 699,
+                image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400",
+                available: false,
+            },
+            {
+                id: 6,
+                title: "Logo Design Package",
+                desc: "Custom logo + 3 variations + source files.",
+                price: 1299,
+                image: "https://images.unsplash.com/photo-1511225070500-7593abad96e3?w=400",
+                available: false,
+            },
+            {
+                id: 7,
+                title: "Website Template (HTML)",
+                desc: "Modern responsive HTML template for any niche.",
+                price: 899,
+                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400",
+                available: false, // <-- sold out
+            },
+            {
+                id: 8,
+                title: "SEO Content Pack",
+                desc: "500+ keywords + content outline for your website.",
+                price: 999,
+                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400",
+                available: false,
+            },
+            {
+                id: 9,
+                title: "App UI Kit",
+                desc: "Mobile app UI kit for iOS and Android.",
+                price: 1199,
+                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400",
+                available: false,
+            },
+            {
+                id: 10,
+                title: "Video Intro Template",
+                desc: "YouTube intro outro template (After Effects).",
+                price: 1699,
+                image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400",
+                available: false,
+            },
+        ];
 
-    <div class="pagination" id="pagination"></div>
-  </div>
+        const productsPerPage = 5;
+        const totalPages = Math.ceil(products.length / productsPerPage);
 
-  <script>
-    // product list with "available" flag
-    const products = [
-      {
-        id: 1,
-        title: "Digital Ebook Template",
-        desc: "Complete design template for your digital ebook.",
-        price: 1,
-        image: "https://images.unsplash.com/photo-1606743823568-0966664333b3?w=400",
-        available: false,
-      },
-      {
-        id: 2,
-        title: "Figma UI Kit",
-        desc: "Premium UI kit for web and mobile apps.",
-        price: 2,
-        image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400",
-        available: true, // <-- sold out
-      },
-      {
-        id: 3,
-        title: "Notion Template Pack",
-        desc: "50+ Notion templates for productivity and business.",
-        price: 599,
-        image: "https://images.unsplash.com/photo-1616411107377-9cfed96cb3ea?w=400",
-        available: false,
-      },
-      {
-        id: 4,
-        title: "Course Access - Advanced React",
-        desc: "Lifetime access to advanced React course.",
-        price: 1499,
-        image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400",
-        available: false,
-      },
-      {
-        id: 5,
-        title: "Canva Pro Template Bundle",
-        desc: "Premium Canva templates for social media.",
-        price: 699,
-        image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400",
-        available: false,
-      },
-      {
-        id: 6,
-        title: "Logo Design Package",
-        desc: "Custom logo + 3 variations + source files.",
-        price: 1299,
-        image: "https://images.unsplash.com/photo-1511225070500-7593abad96e3?w=400",
-        available: false,
-      },
-      {
-        id: 7,
-        title: "Website Template (HTML)",
-        desc: "Modern responsive HTML template for any niche.",
-        price: 899,
-        image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400",
-        available: false, // <-- sold out
-      },
-      {
-        id: 8,
-        title: "SEO Content Pack",
-        desc: "500+ keywords + content outline for your website.",
-        price: 999,
-        image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400",
-        available: false,
-      },
-      {
-        id: 9,
-        title: "App UI Kit",
-        desc: "Mobile app UI kit for iOS and Android.",
-        price: 1199,
-        image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400",
-        available: false,
-      },
-      {
-        id: 10,
-        title: "Video Intro Template",
-        desc: "YouTube intro outro template (After Effects).",
-        price: 1699,
-        image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400",
-        available: false,
-      },
-    ];
+        let currentPage = 0;
 
-    const productsPerPage = 5;
-    const totalPages = Math.ceil(products.length / productsPerPage);
+        const wrapper = document.querySelector(".slider-wrapper");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const paginationEl = document.getElementById("pagination");
 
-    let currentPage = 0;
+        // product -> redirect link mapping
+        const productRedirects = {
+            1: "https://your-site.com/thank-you/ebook",
+            2: "https://cdn.pixabay.com/photo/2015/04/04/19/13/two-706896_1280.jpg",
+            3: "https://your-site.com/thank-you/notion-pack",
+            4: "https://your-site.com/thank-you/react-course",
+            5: "https://your-site.com/thank-you/canva-bundle",
+            6: "https://your-site.com/thank-you/logo-design",
+            7: "https://your-site.com/thank-you/html-template",
+            8: "https://your-site.com/thank-you/seo-pack",
+            9: "https://your-site.com/thank-you/app-ui",
+            10: "https://your-site.com/thank-you/video-intro",
+        };
 
-    const wrapper = document.querySelector(".slider-wrapper");
-    const prevBtn = document.getElementById("prev-btn");
-    const nextBtn = document.getElementById("next-btn");
-    const paginationEl = document.getElementById("pagination");
+        function createProductCard(prod) {
+            const card = document.createElement("div");
+            card.className = "product-card";
 
-    // product -> redirect link mapping
-    const productRedirects = {
-      1: "https://your-site.com/thank-you/ebook",
-      2: "https://cdn.pixabay.com/photo/2015/04/04/19/13/two-706896_1280.jpg",
-      3: "https://your-site.com/thank-you/notion-pack",
-      4: "https://your-site.com/thank-you/react-course",
-      5: "https://your-site.com/thank-you/canva-bundle",
-      6: "https://your-site.com/thank-you/logo-design",
-      7: "https://your-site.com/thank-you/html-template",
-      8: "https://your-site.com/thank-you/seo-pack",
-      9: "https://your-site.com/thank-you/app-ui",
-      10: "https://your-site.com/thank-you/video-intro",
-    };
+            const isSoldOut = !prod.available;
+            const btnText = isSoldOut ? "Sold Out" : "Buy Now";
+            const btnClass = isSoldOut ? "buy-btn sold-out" : "buy-btn";
+            const btnDisabled = isSoldOut ? "disabled" : "";
 
-    function createProductCard(prod) {
-      const card = document.createElement("div");
-      card.className = "product-card";
-
-      const isSoldOut = !prod.available;
-      const btnText = isSoldOut ? "Sold Out" : "Buy Now";
-      const btnClass = isSoldOut ? "buy-btn sold-out" : "buy-btn";
-      const btnDisabled = isSoldOut ? "disabled" : "";
-
-      card.innerHTML = `
+            card.innerHTML = `
         <img src="${prod.image}" alt="${prod.title}" class="product-img" />
         <div class="product-title">${prod.title}</div>
         <div class="product-desc">${prod.desc}</div>
@@ -328,112 +400,139 @@
           ${btnText}
         </button>
       `;
-      return card;
-    }
-
-    function renderPages() {
-      for (let i = 0; i < totalPages; i++) {
-        const pageEl = document.getElementById(`page-${i}`);
-        pageEl.innerHTML = "";
-        const start = i * productsPerPage;
-        const end = start + productsPerPage;
-        products.slice(start, end).forEach((p) => {
-          pageEl.appendChild(createProductCard(p));
-        });
-      }
-
-      prevBtn.disabled = currentPage === 0;
-      nextBtn.disabled = currentPage >= totalPages - 1;
-
-      // pagination buttons
-      paginationEl.innerHTML = "";
-      for (let i = 0; i < totalPages; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i + 1;
-        btn.className = "page-btn";
-        if (i === currentPage) btn.classList.add("active");
-        btn.addEventListener("click", () => {
-          currentPage = i;
-          updateSlider();
-          renderPages();
-        });
-        paginationEl.appendChild(btn);
-      }
-    }
-
-    function updateSlider() {
-      wrapper.style.transform = `translateX(-${currentPage * 100}%)`;
-    }
-
-    prevBtn.addEventListener("click", () => {
-      if (currentPage > 0) {
-        currentPage--;
-        updateSlider();
-        renderPages();
-      }
-    });
-
-    nextBtn.addEventListener("click", () => {
-      if (currentPage < totalPages - 1) {
-        currentPage++;
-        updateSlider();
-        renderPages();
-      }
-    });
-
-    // Razorpay payment handler with product title + image + custom redirect
-    function openRazorpayCheckout(product) {
-      const redirectUrl = productRedirects[product.id] || "/success?pid=" + product.id;
-
-      const options = {
-        key: "rzp_live_RIv11yZioPlK0h", // <-- apna Razorpay key daalo
-        amount: product.price * 100,
-        currency: "INR",
-        name: product.title,          // product title Razorpay heading
-        description: product.desc,
-        image: product.image,
-        handler: function (response) {
-          alert("Payment successful: " + response.razorpay_payment_id);
-          window.location.href = redirectUrl;
-        },
-        prefill: {
-          name: "",
-          email: "",
-          contact: "",
-        },
-        theme: {
-          color: "#6d28d9",
-        },
-      };
-
-      const rzp = new Razorpay(options);
-      rzp.open();
-    }
-
-    // bind buy buttons
-    document.addEventListener("click", (e) => {
-      const btn = e.target;
-      if (btn.classList.contains("buy-btn")) {
-        const available = btn.dataset.available === "true";
-        const id = parseInt(btn.dataset.prodid);
-
-        if (!available) {
-          alert("This product is sold out.");
-          return;
+            return card;
         }
 
-        const product = products.find((p) => p.id === id);
-        if (product) {
-          openRazorpayCheckout(product);
-        } else {
-          alert("Product not found.");
-        }
-      }
-    });
+        function renderPages() {
+            for (let i = 0; i < totalPages; i++) {
+                const pageEl = document.getElementById(`page-${i}`);
+                pageEl.innerHTML = "";
+                const start = i * productsPerPage;
+                const end = start + productsPerPage;
+                products.slice(start, end).forEach((p) => {
+                    pageEl.appendChild(createProductCard(p));
+                });
+            }
 
-    // init
-    renderPages();
-    updateSlider();
-  </script>
+            prevBtn.disabled = currentPage === 0;
+            nextBtn.disabled = currentPage >= totalPages - 1;
+
+            // pagination buttons
+            paginationEl.innerHTML = "";
+            for (let i = 0; i < totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i + 1;
+                btn.className = "page-btn";
+                if (i === currentPage) btn.classList.add("active");
+                btn.addEventListener("click", () => {
+                    currentPage = i;
+                    updateSlider();
+                    renderPages();
+                });
+                paginationEl.appendChild(btn);
+            }
+        }
+
+        function updateSlider() {
+            wrapper.style.transform = `translateX(-${currentPage * 100}%)`;
+        }
+
+        prevBtn.addEventListener("click", () => {
+            if (currentPage > 0) {
+                currentPage--;
+                updateSlider();
+                renderPages();
+            }
+        });
+
+        nextBtn.addEventListener("click", () => {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                updateSlider();
+                renderPages();
+            }
+        });
+
+        // Razorpay payment handler with product title + image + custom redirect
+        function openRazorpayCheckout(product) {
+            const redirectUrl = productRedirects[product.id] || "/success?pid=" + product.id;
+
+            const options = {
+                key: "rzp_live_RIv11yZioPlK0h", // <-- apna Razorpay key daalo
+                amount: product.price * 100,
+                currency: "INR",
+                name: product.title,          // product title Razorpay heading
+                description: product.desc,
+                image: product.image,
+                // handler: function (response) {
+                //     alert("Payment successful: " + response.razorpay_payment_id);
+                //     window.location.href = redirectUrl;
+                // },
+                handler: function (response) {
+                    showSuccessModal(response.razorpay_payment_id, redirectUrl);
+                },
+                prefill: {
+                    name: "",
+                    email: "",
+                    contact: "",
+                },
+                theme: {
+                    color: "#6d28d9",
+                },
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+        }
+
+        // bind buy buttons
+        document.addEventListener("click", (e) => {
+            const btn = e.target;
+            if (btn.classList.contains("buy-btn")) {
+                const available = btn.dataset.available === "true";
+                const id = parseInt(btn.dataset.prodid);
+
+                if (!available) {
+                    alert("This product is sold out.");
+                    return;
+                }
+
+                const product = products.find((p) => p.id === id);
+                if (product) {
+                    openRazorpayCheckout(product);
+                } else {
+                    alert("Product not found.");
+                }
+            }
+        });
+        function showSuccessModal(paymentId, redirectUrl) {
+            const modal = document.getElementById("successModal");
+            const paymentText = document.getElementById("paymentIdText");
+            const continueBtn = document.getElementById("continueBtn");
+
+            paymentText.textContent = "Transaction ID: " + paymentId;
+
+            modal.classList.add("active");
+
+            continueBtn.onclick = () => {
+                window.location.href = redirectUrl;
+            };
+        }
+
+        // init
+        renderPages();
+        updateSlider();
+
+    </script>
+    <!-- Success Modal -->
+    <div id="successModal" class="success-modal">
+        <div class="success-box">
+            <div class="success-icon">✓</div>
+            <h2>Payment Successful</h2>
+            <p id="paymentIdText"></p>
+            <button id="continueBtn">Continue</button>
+        </div>
+    </div>
 </body>
+
 </html>
