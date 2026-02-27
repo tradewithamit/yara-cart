@@ -1,763 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Products Store</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    :root {
+      --bg: #0f0f1e;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --border: rgba(255, 255, 255, 0.2);
+      --accent: #6d28d9;
+      --text: #e5e5ea;
+      --soldout: #f59e0b;
+    }
 
-    <title>Yara cart</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- ✅ Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="shortcut icon" href="https://github.com/tradewithamit/yara-cart/blob/main/yaara%20logo.png?raw=true"
-        type="image/x-icon">
-</head>
-
-<style>
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-        /* font-family: "Poppins", sans-serif; */
-        font-family: 'Times New Roman', Times, serif;
-        background: #F8F9FD;
-        color: #2C2C2C;
-        line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
     }
 
-    /* Header */
-    .header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.6);
-        backdrop-filter: blur(12px);
-        z-index: 1000;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 30px;
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
     }
 
-    .logo-text {
-        font-size: 24px;
-        font-weight: bold;
-        color: purple;
-        /* color: white; */
-        font-family: "Charmonman", cursive;
+    /* slider container */
+    .slider-container {
+      max-width: 400px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
     }
 
-    .logo-img img {
-        height: 40px;
-        margin-left: 110px;
-        background-color: white;
-        border-radius: 50%;
+    .slider-wrapper {
+      display: flex;
+      transition: transform 0.4s ease;
     }
 
-    .navbar ul {
-        list-style: none;
-        display: flex;
-        gap: 20px;
+    .slider-page {
+      display: flex;
+      width: 100%;
+      min-width: 100%;
+      flex-direction: column;
+      gap: 20px;
     }
 
-
-    .navbar ul li a {
-        color: #2C2C2C;
-        text-decoration: none;
-        font-weight: 500;
-        transition: 0.3s;
+    /* glass card */
+    .product-card {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
-    .navbar ul li a:hover {
-        color: #6C63FF;
+    .product-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-
-    .hamburger {
-        display: none;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 25px;
-        height: 20px;
-        cursor: pointer;
-        z-index: 1100;
-
-
+    .product-title {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-weight: 600;
     }
 
-    .hamburger span {
-        display: block;
-        height: 3px;
-        width: 100%;
-        background: #2C2C2C;
-        border-radius: 3px;
-        transition: all 0.3s ease;
-
+    .product-desc {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 10px;
     }
 
-    /* Toggle animation */
-    .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    .relative {
-        margin-top: 65px;
-    }
-
-    /* Hero Section */
-    .hero {
-        margin-top: 80px;
-        text-align: center;
-        padding: 80px 20px;
-        background-image: url("https://img.freepik.com/free-photo/3d-illustration-smartphone-with-products-coming-out-screen-online-shopping-e-commerce-concept_58466-14529.jpg?w=1480");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        min-height: 60vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .hero h1 {
-        font-size: 48px;
-        color: #6C63FF;
-    }
-
-    .hero p {
-        margin: 10px 0 20px;
-        font-size: 18px;
-    }
-
-    .hero .btn {
-        background: #6C63FF;
-        color: white;
-        padding: 12px 25px;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-
-    .hero .btn:hover {
-        background-color: #4A3AFF;
-        transform: scale(1.05);
-    }
-
-    /* Categories */
-    .categories {
-        padding: 40px 20px;
-        text-align: center;
-    }
-
-    .categories h2 {
-        font-size: 28px;
-        margin-bottom: 20px;
-        color: #6C63FF;
-    }
-
-    .category-slider {
-        display: flex;
-        gap: 15px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 10px;
-        animation: slideIn 1s ease-out;
-        justify-content: space-around;
-    }
-
-    .category-slider::-webkit-scrollbar {
-        display: none;
-    }
-
-    .category-card {
-        flex: 0 0 auto;
-        scroll-snap-align: center;
-        text-align: center;
-        text-decoration: none;
-        color: inherit;
-        background: transparent;
-        border-radius: 0;
-        width: 90px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-
-    .category-card img {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        object-fit: cover;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .category-card p {
-        margin-top: 8px;
-        font-size: 14px;
-        font-weight: 500;
-        color: #2C2C2C;
-    }
-
-    .category-card:hover {
-        transform: scale(0.9);
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateX(-100%);
-            opacity: 0;
-        }
-
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    /* Products */
-    .products {
-        padding: 50px 20px;
-        text-align: center;
+    .product-price {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 15px;
     }
 
     .buy-btn {
-        display: inline-block;
-        text-align: center;
-        background: #FF8BA7;
-        color: white;
-        text-decoration: none;
-        padding: 10px 20px;
-        border-radius: 25px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background-color 0.3s ease;
-        width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      width: 100%;
+      transition: 0.2s ease;
     }
 
     .buy-btn:hover {
-        background: #6C63FF;
-
+      background: #5b21b6;
     }
 
-    .products h2 {
-        font-size: 32px;
-        margin-bottom: 30px;
-        color: #6C63FF;
+    /* sold out button */
+    .buy-btn.sold-out {
+      background: var(--soldout);
+      cursor: not-allowed;
     }
 
-    .product-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
+    .buy-btn.sold-out:hover {
+      background: #d97706;
     }
 
-    .product-card {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(12px);
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
+    /* pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
     }
 
-    .product-card:hover {
-        transform: translateY(-5px);
+    .page-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.2s ease;
     }
 
-    .product-card img {
-        max-width: 100%;
-        border-radius: 10px;
+    .page-btn.active {
+      background: var(--accent);
+      color: white;
     }
 
-    .product-card h3 {
-        margin: 15px 0 10px;
-        font-size: 20px;
-        color: #6C63FF;
-        color: purple;
-        text-transform: capitalize;
+    .page-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.15);
     }
 
-    .product-card p {
-        margin-bottom: 15px;
-        font-weight: bold;
+    /* nav buttons */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
     }
 
-    .product-card p del {
-        color: #888;
-        margin-right: 8px;
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 12px;
+      cursor: pointer;
     }
 
-    .product-card .btn-checkout {
-        display: inline-block;
-        text-align: center;
-        background: #FF8BA7;
-        color: white;
-        text-decoration: none;
-        padding: 10px 20px;
-        border-radius: 25px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background-color 0.3s ease;
-        width: 100%;
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
-
-    .product-card .btn-checkout:hover {
-        background: #6C63FF;
-    }
-
-    /* Footer */
-    footer {
-        background: linear-gradient(to top, #6C63FF, #FF8BA7);
-        background-color: black;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        margin-top: 50px;
-    }
-
-    /* Popup styles */
-    /* Popup styles */
-    .popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.55);
-        backdrop-filter: blur(6px);
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        animation: fadeIn 0.3s ease-in-out;
-    }
-
-    .popup-content {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(12px);
-        padding: 25px 20px;
-        border-radius: 15px;
-        text-align: center;
-        width: 85%;
-        max-width: 380px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        transform: scale(0.8);
-        opacity: 0;
-        animation: popupScale 0.3s forwards;
-        position: relative;
-    }
-
-    /* Heading style */
-    .popup-content h3 {
-        margin-bottom: 20px;
-        color: #6C63FF;
-        font-size: 14px;
-        font-weight: 600;
-        /* white-space: nowrap; */
-    }
-
-    /* Buttons */
-    .popup-content button {
-        padding: 10px 15px;
-        border-radius: 10px;
-        font-weight: 500;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 12px;
-    }
-
-    .no-btn {
-        background: #6C63FF;
-        color: #fff;
-        width: 100%;
-    }
-
-    .no-btn:hover {
-        background: #4A3AFF;
-    }
-
-    .yes-btn {
-        background: transparent;
-        border: 2px solid #6C63FF;
-        color: #6C63FF;
-        width: 100%;
-    }
-
-    .yes-btn:hover {
-        background: #6C63FF;
-        color: white;
-    }
-
-    /* Close Icon */
-
-
-    /* Animations */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes popupScale {
-        from {
-            transform: scale(0.8);
-            opacity: 0;
-        }
-
-        to {
-            transform: scale(1);
-            opacity: 1;
-        }
-    }
-
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .logo-img img {
-            margin-left: 1px;
-        }
-
-        .navbar ul {
-            position: absolute;
-            top: 70px;
-            right: -250px;
-            width: 200px;
-            flex-direction: column;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            padding: 15px;
-            border-radius: 10px;
-            transition: right 0.4s ease;
-            align-items: center;
-        }
-
-
-        .navbar ul.active {
-            right: 20px;
-        }
-
-        .hamburger {
-            display: flex;
-        }
-
-        .hero {
-            padding: 40px 15px;
-            min-height: 40vh;
-            background-position: top;
-        }
-
-        .hero h1 {
-            font-size: 28px;
-        }
-
-        .hero p {
-            font-size: 14px;
-        }
-
-        .hero .btn {
-            padding: 10px 20px;
-            font-size: 14px;
-        }
-    }
-</style>
-
+  </style>
+</head>
 <body>
+  <h1>Digital Products Store</h1>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="logo-text">yara cart</div>
-        <div class="logo-img">
-            <img src="https://github.com/tradewithamit/yara-cart/blob/main/yaara%20logo.png?raw=true" alt="Yaara Logo">
-        </div>
-        <nav class="navbar">
-            <ul>
-                <li class="home"><a href="index.html">Home</a></li>
-                <li><a href="AboutUs.html">About</a></li>
-                <li><a href="ContactUs.html">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </header>
-
-    <!-- Banner -->
-    <section class="relative w-full overflow-hidden">
-        <div class="flex transition-transform duration-700" id="bannerSlider">
-            <img src="https://erisilvers.com/cdn/shop/files/01_994933ca-e824-4940-b6fe-8bf30215fa7c.jpg?v=1754481591&width=2000"
-                class="w-full flex-shrink-0" alt="Banner 1">
-            <img src="https://erisilvers.com/cdn/shop/files/02_89f67f2c-c982-437c-bcdb-b8fa27cf57e4.jpg?v=1755150418&width=2000"
-                class="w-full flex-shrink-0" alt="Banner 2">
-            <img src="https://erisilvers.com/cdn/shop/files/04_7d42ee7b-35af-4068-addf-2210cacb50e6.jpg?v=1755150418&width=2000"
-                class="w-full flex-shrink-0" alt="Banner 3">
-        </div>
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3">
-            <button class="w-3 h-3 bg-purple-300 rounded-full"></button>
-            <button class="w-3 h-3 bg-purple-300 rounded-full"></button>
-            <button class="w-3 h-3 bg-purple-300 rounded-full"></button>
-        </div>
-    </section>
-
-    <!-- Category Section -->
-    <section class="categories">
-        <h2>Shop by Category</h2>
-        <div class="category-slider">
-            <a href="earring.html" class="category-card">
-                <img src="https://github.com/tradewithamit/yara-cart/blob/main/earring.jpg?raw=true" alt="Earrings">
-                <p>Earrings</p>
-            </a>
-            <a href="ring.html" class="category-card">
-                <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring.jpg?raw=true" alt="Ring">
-                <p>Ring</p>
-            </a>
-            <a href="bracelet.html" class="category-card">
-                <img src="https://github.com/tradewithamit/yara-cart/blob/main/bracelet.jpg?raw=true" alt="Bracelets">
-                <p>Bracelets</p>
-            </a>
-            <a href="chain.html" class="category-card">
-                <img src="https://github.com/tradewithamit/yara-cart/blob/main/chain.jpg?raw=true" alt="Chain">
-                <p>Chain</p>
-            </a>
-            <a href="anklet.html" class="category-card">
-                <img src="https://github.com/tradewithamit/yara-cart/blob/main/ankle.jpg?raw=true" alt="Anklets">
-                <p>Anklets</p>
-            </a>
-        </div>
-    </section>
-
-    <!-- Products -->
-    <section class="products">
-        <h2>Featured Products</h2>
-        <div class="product-grid">
-
-            <div class="product-card">
-                <a href="lupacheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring1.jpg?raw=true" alt="Product 1">
-                    <h3>Lupa ring </h3>
-                </a>
-                <!-- <p><del>&#8377;1,765</del> &#8377;999</p> -->
-                <p><del>&#8377;899</del> &#8377;399</p>
-                <button class="buy-btn" onclick="window.location.href='lupacheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <div class="product-card">
-                <a href="semocheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring2.jpg?raw=true" alt="Product 2">
-                    <h3>Semo Ring</h3>
-                </a>
-                <!-- <p><del>&#8377;1,240</del> &#8377;599</p> -->
-                <p><del>&#8377;1,499</del> &#8377;999</p>
-                <button class="buy-btn" onclick="window.location.href='semocheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <!-- <div class="product-card">
-                <a href="romacheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring3.jpg?raw=true" alt="Product 3">
-                    <h3>Roma Ring</h3>
-                </a>
-                <p><del>&#8377;1,399</del> &#8377;899</p>
-                <button class="buy-btn" onclick="window.location.href='romacheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <div class="product-card">
-                <a href="devilcheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring4.jpg?raw=true" alt="Product 4">
-                    <h3>devil ring </h3>
-                </a>
-                <p><del>&#8377;795</del> &#8377;649</p>
-                <button class="buy-btn" onclick="window.location.href='devilcheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <div class="product-card">
-                <a href="mondcheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/ring5.jpg?raw=true" alt="Product 5">
-                    <h3>mond Ring</h3>
-                </a>
-                <p><del>&#8377;1,199</del> &#8377;999</p>
-                <button class="buy-btn" onclick="window.location.href='mondcheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <div class="product-card">
-                <a href="piratecheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/bracelet1.png?raw=true"
-                        alt="Product 6">
-                    <h3>Pirate bracelet for male</h3>
-                </a>
-                <p><del>&#8377;699</del> &#8377;419</p>
-                <button class="buy-btn" onclick="window.location.href='piratecheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <div class="product-card">
-                <a href="angelcheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/bracelet2.jpg?raw=true"
-                        alt="Product 7">
-                    <h3>angel bracelet</h3>
-                </a>
-                <p><del>&#8377;599</del> &#8377;319</p>
-                <button class="buy-btn" onclick="window.location.href='angelcheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <div class="product-card">
-                <a href="jirencheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/bracelet3.jpg?raw=true"
-                        alt="Product 8">
-                    <h3>Jiren bracelet </h3>
-                </a>
-                <p><del>&#8377;1,299</del> &#8377;899</p>
-                <button class="buy-btn" onclick="window.location.href='jirencheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <div class="product-card">
-                <a href="mursocheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/bracelet4.jpg?raw=true"
-                        alt="Product 9">
-                    <h3>murso bracelet</h3>
-                </a>
-                <p><del>&#8377;699</del> &#8377;399</p>
-                <button class="buy-btn" onclick="window.location.href='mursocheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <div class="product-card">
-                <a href="normcheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/braceand%20ankle.jpg?raw=true"
-                        alt="Product 10">
-                    <h3>norm bracelet</h3>
-                </a>
-                <p><del>&#8377;1,199</del> &#8377;849</p>
-                <button class="buy-btn" onclick="window.location.href='normcheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div>
-            <div class="product-card">
-                <a href="buttercheck.html">
-                    <img src="https://github.com/tradewithamit/yara-cart/blob/main/chain1.jpg?raw=true"
-                        alt="Product 11">
-                    <h3>Butterfly chain</h3>
-                </a>
-                <p><del>&#8377;899</del> &#8377;749</p>
-                <button class="buy-btn" onclick="window.location.href='buttercheck.html'">
-                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                </button>
-            </div> -->
-
-
-        </div>
-
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Yaara cart. All rights reserved.</p>
-        <p><a href="PrivacyPolicy.html">Privacy Policy</a></p>
-        <p><a href="TearmsandCondition.html">Tearms And Conditions</a></p>
-        <p><a href="RefundPolicy.html">Refund Policy</a></p>
-        <p><a href="AboutUs.html">About Us</a></p>
-        <p><a href="ContactUs.html">Contact Us</a></p>
-    </footer>
-    <!-- Exit Popup -->
-    <div class="popup" id="exitPopup">
-        <div class="popup-content">
-            <!-- <span class="close-btn" onclick="closePopup()">&times;</span> -->
-            <h3>Are you sure you want to exit?</h3>
-            <button class="no-btn" onclick="closePopup()">No</button>
-            <button class="yes-btn" onclick="AppInventor.setWebViewString('exit')">Yes</button>
-        </div>
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <!-- example pages; each page has 5 products -->
+      <div class="slider-page" id="page-0"></div>
+      <div class="slider-page" id="page-1"></div>
+      <div class="slider-page" id="page-2"></div>
     </div>
-    <!-- Exit Popup -->
 
-    <script>
-        function openPopup() {
-            document.getElementById('exitPopup').style.display = 'flex';
+    <div class="nav-buttons">
+      <button id="prev-btn" class="nav-btn">Previous</button>
+      <button id="next-btn" class="nav-btn">Next</button>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <script>
+    // product list with "available" flag
+    const products = [
+      {
+        id: 1,
+        title: "Digital Ebook Template",
+        desc: "Complete design template for your digital ebook.",
+        price: 1,
+        image: "https://images.unsplash.com/photo-1606743823568-0966664333b3?w=400",
+        available: true,
+      },
+      {
+        id: 2,
+        title: "Figma UI Kit",
+        desc: "Premium UI kit for web and mobile apps.",
+        price: 2,
+        image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400",
+        available: true, // <-- sold out
+      },
+      {
+        id: 3,
+        title: "Notion Template Pack",
+        desc: "50+ Notion templates for productivity and business.",
+        price: 599,
+        image: "https://images.unsplash.com/photo-1616411107377-9cfed96cb3ea?w=400",
+        available: false,
+      },
+      {
+        id: 4,
+        title: "Course Access - Advanced React",
+        desc: "Lifetime access to advanced React course.",
+        price: 1499,
+        image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400",
+        available: false,
+      },
+      {
+        id: 5,
+        title: "Canva Pro Template Bundle",
+        desc: "Premium Canva templates for social media.",
+        price: 699,
+        image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400",
+        available: false,
+      },
+      {
+        id: 6,
+        title: "Logo Design Package",
+        desc: "Custom logo + 3 variations + source files.",
+        price: 1299,
+        image: "https://images.unsplash.com/photo-1511225070500-7593abad96e3?w=400",
+        available: false,
+      },
+      {
+        id: 7,
+        title: "Website Template (HTML)",
+        desc: "Modern responsive HTML template for any niche.",
+        price: 899,
+        image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400",
+        available: false, // <-- sold out
+      },
+      {
+        id: 8,
+        title: "SEO Content Pack",
+        desc: "500+ keywords + content outline for your website.",
+        price: 999,
+        image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400",
+        available: false,
+      },
+      {
+        id: 9,
+        title: "App UI Kit",
+        desc: "Mobile app UI kit for iOS and Android.",
+        price: 1199,
+        image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400",
+        available: false,
+      },
+      {
+        id: 10,
+        title: "Video Intro Template",
+        desc: "YouTube intro outro template (After Effects).",
+        price: 1699,
+        image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400",
+        available: false,
+      },
+    ];
+
+    const productsPerPage = 5;
+    const totalPages = Math.ceil(products.length / productsPerPage);
+
+    let currentPage = 0;
+
+    const wrapper = document.querySelector(".slider-wrapper");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const paginationEl = document.getElementById("pagination");
+
+    // product -> redirect link mapping
+    const productRedirects = {
+      1: "https://your-site.com/thank-you/ebook",
+      2: "https://your-site.com/thank-you/figma-kit",
+      3: "https://your-site.com/thank-you/notion-pack",
+      4: "https://your-site.com/thank-you/react-course",
+      5: "https://your-site.com/thank-you/canva-bundle",
+      6: "https://your-site.com/thank-you/logo-design",
+      7: "https://your-site.com/thank-you/html-template",
+      8: "https://your-site.com/thank-you/seo-pack",
+      9: "https://your-site.com/thank-you/app-ui",
+      10: "https://your-site.com/thank-you/video-intro",
+    };
+
+    function createProductCard(prod) {
+      const card = document.createElement("div");
+      card.className = "product-card";
+
+      const isSoldOut = !prod.available;
+      const btnText = isSoldOut ? "Sold Out" : "Buy Now";
+      const btnClass = isSoldOut ? "buy-btn sold-out" : "buy-btn";
+      const btnDisabled = isSoldOut ? "disabled" : "";
+
+      card.innerHTML = `
+        <img src="${prod.image}" alt="${prod.title}" class="product-img" />
+        <div class="product-title">${prod.title}</div>
+        <div class="product-desc">${prod.desc}</div>
+        <div class="product-price">₹${prod.price}</div>
+        <button class="${btnClass}" data-prodid="${prod.id}" data-available="${prod.available}" ${btnDisabled}>
+          ${btnText}
+        </button>
+      `;
+      return card;
+    }
+
+    function renderPages() {
+      for (let i = 0; i < totalPages; i++) {
+        const pageEl = document.getElementById(`page-${i}`);
+        pageEl.innerHTML = "";
+        const start = i * productsPerPage;
+        const end = start + productsPerPage;
+        products.slice(start, end).forEach((p) => {
+          pageEl.appendChild(createProductCard(p));
+        });
+      }
+
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage >= totalPages - 1;
+
+      // pagination buttons
+      paginationEl.innerHTML = "";
+      for (let i = 0; i < totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i + 1;
+        btn.className = "page-btn";
+        if (i === currentPage) btn.classList.add("active");
+        btn.addEventListener("click", () => {
+          currentPage = i;
+          updateSlider();
+          renderPages();
+        });
+        paginationEl.appendChild(btn);
+      }
+    }
+
+    function updateSlider() {
+      wrapper.style.transform = `translateX(-${currentPage * 100}%)`;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 0) {
+        currentPage--;
+        updateSlider();
+        renderPages();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        updateSlider();
+        renderPages();
+      }
+    });
+
+    // Razorpay payment handler with product title + image + custom redirect
+    function openRazorpayCheckout(product) {
+      const redirectUrl = productRedirects[product.id] || "/success?pid=" + product.id;
+
+      const options = {
+        key: "rzp_live_RIv11yZioPlK0h", // <-- apna Razorpay key daalo
+        amount: product.price * 100,
+        currency: "INR",
+        name: product.title,          // product title Razorpay heading
+        description: product.desc,
+        image: product.image,
+        handler: function (response) {
+          alert("Payment successful: " + response.razorpay_payment_id);
+          window.location.href = redirectUrl;
+        },
+        prefill: {
+          name: "",
+          email: "",
+          contact: "",
+        },
+        theme: {
+          color: "#6d28d9",
+        },
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    }
+
+    // bind buy buttons
+    document.addEventListener("click", (e) => {
+      const btn = e.target;
+      if (btn.classList.contains("buy-btn")) {
+        const available = btn.dataset.available === "true";
+        const id = parseInt(btn.dataset.prodid);
+
+        if (!available) {
+          alert("This product is sold out.");
+          return;
         }
 
-        function closePopup() {
-            document.getElementById('exitPopup').style.display = 'none';
+        const product = products.find((p) => p.id === id);
+        if (product) {
+          openRazorpayCheckout(product);
+        } else {
+          alert("Product not found.");
         }
+      }
+    });
 
-    </script>
-
-
-
-    <script>
-        const hamburger = document.querySelector(".hamburger");
-        const nav = document.querySelector(".navbar ul");
-        hamburger.addEventListener("click", () => {
-            nav.classList.toggle("active");
-            hamburger.classList.toggle("active");
-        });
-
-        const slider = document.getElementById('bannerSlider');
-        let index = 0;
-        setInterval(() => {
-            index = (index + 1) % 3;
-            slider.style.transform = `translateX(-${index * 100}%)`;
-        }, 4000);
-    </script>
-    <script>
-        // Right click disable
-        document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-        // Disable common keys (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
-        document.addEventListener("keydown", (e) => {
-            if (
-                e.key === "F12" ||
-                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
-                (e.ctrlKey && e.key === "U")
-            ) {
-                e.preventDefault();
-            }
-        });
-
-        // Detect if DevTools is open (size trick)
-        setInterval(() => {
-            if (window.outerHeight - window.innerHeight > 150 || window.outerWidth - window.innerWidth > 150) {
-                document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:20%'>⚠️ Inspect Not Allowed!</h1>";
-            }
-        }, 1000);
-    </script>
+    // init
+    renderPages();
+    updateSlider();
+  </script>
 </body>
-
 </html>
-
